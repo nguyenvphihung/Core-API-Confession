@@ -1,6 +1,7 @@
 from faker import Faker
 from database import SessionLocal
 from models import User, Post, Comment, Interaction, CommentInteraction
+from auth import hash_password
 import random
 
 fake = Faker()
@@ -11,11 +12,13 @@ def seed_data():
 
     # 1. Tạo 1000 Users (có display_name và email)
     users = []
+    default_password = hash_password("password123")  # Hash 1 lần, dùng chung cho tất cả
     for _ in range(1000):
         users.append(User(
             student_id=str(fake.unique.random_number(digits=9, fix_len=True)),
             display_name=fake.name(),
-            email=fake.unique.email()
+            email=fake.unique.email(),
+            password_hash=default_password
         ))
 
     db.bulk_save_objects(users)
