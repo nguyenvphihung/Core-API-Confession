@@ -1,4 +1,4 @@
-from sqlalchemy import Column, Integer, String, Text, ForeignKey, DateTime, UniqueConstraint, func
+from sqlalchemy import Column, Integer, String, Text, Boolean, ForeignKey, DateTime, UniqueConstraint, func
 from sqlalchemy.orm import relationship
 from database import Base
 
@@ -24,23 +24,24 @@ class Post(Base):
     __tablename__ = "posts"
 
     id = Column(Integer, primary_key=True, index=True)
-    author_id = Column(Integer, ForeignKey("users.id"), nullable=False)
+    author_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
     content = Column(Text, nullable=False)
+    is_anonymous = Column(Boolean, default=False)
     created_at = Column(DateTime, server_default=func.now())
 
     # Relationships
     author = relationship("User", back_populates="posts")
-    comments = relationship("Comment", back_populates="post", order_by="Comment.created_at")
-    media = relationship("PostMedia", back_populates="post")
-    interactions = relationship("Interaction", back_populates="post")
+    comments = relationship("Comment", back_populates="post", order_by="Comment.created_at", cascade="all, delete-orphan")
+    media = relationship("PostMedia", back_populates="post", cascade="all, delete-orphan")
+    interactions = relationship("Interaction", back_populates="post", cascade="all, delete-orphan")
 
 
 class Comment(Base):
     __tablename__ = "comments"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False, index=True)
     parent_id = Column(Integer, ForeignKey("comments.id"), nullable=True)  # NULL = comment gốc
     content = Column(Text, nullable=False)
     created_at = Column(DateTime, server_default=func.now())
@@ -56,7 +57,7 @@ class PostMedia(Base):
     __tablename__ = "post_media"
 
     id = Column(Integer, primary_key=True, index=True)
-    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
+    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False, index=True)
     file_url = Column(String(500), nullable=False)        # Đường dẫn file trên server
     file_name = Column(String(255), nullable=False)       # Tên file gốc khi upload
     file_size = Column(Integer, nullable=False)            # Kích thước file (bytes)
@@ -72,8 +73,8 @@ class Interaction(Base):
     __tablename__ = "interactions"
 
     id = Column(Integer, primary_key=True, index=True)
-    user_id = Column(Integer, ForeignKey("users.id"), nullable=False)
-    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False)
+    user_id = Column(Integer, ForeignKey("users.id"), nullable=False, index=True)
+    post_id = Column(Integer, ForeignKey("posts.id"), nullable=False, index=True)
     interaction_type = Column(String(50), default="like")  # like, view...
     created_at = Column(DateTime, server_default=func.now())
 

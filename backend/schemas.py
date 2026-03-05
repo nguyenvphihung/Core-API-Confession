@@ -28,10 +28,7 @@ class UserResponse(BaseModel):
 # ========================
 class Token(BaseModel):
     access_token: str
-    token_type: str = "bearer"
-
-class TokenData(BaseModel):
-    user_id: Optional[int] = None
+    token_type: str
 
 class LoginRequest(BaseModel):
     student_id: str
@@ -39,17 +36,40 @@ class LoginRequest(BaseModel):
 
 
 # ========================
+# Post Media Schemas (phải đặt trước PostResponse)
+# ========================
+class PostMediaResponse(BaseModel):
+    id: int
+    post_id: int
+    file_url: str
+    file_name: str
+    file_size: int
+    media_type: str
+    mime_type: str
+    created_at: datetime
+
+    class Config:
+        from_attributes = True
+
+
+# ========================
 # Post Schemas
 # ========================
 class PostCreate(BaseModel):
     content: str
+    is_anonymous: bool = False
 
 class PostResponse(BaseModel):
     id: int
     author_id: int
     content: str
+    is_anonymous: bool = False
     created_at: datetime
     author: Optional[UserResponse] = None
+    like_count: int = 0
+    comment_count: int = 0
+    user_liked: bool = False
+    media: List[PostMediaResponse] = []
 
     class Config:
         from_attributes = True
@@ -70,6 +90,8 @@ class CommentResponse(BaseModel):
     content: str
     created_at: datetime
     user: Optional[UserResponse] = None
+    like_count: int = 0
+    user_liked: bool = False
     replies: List["CommentResponse"] = []
 
     class Config:
@@ -104,23 +126,6 @@ class CommentInteractionResponse(BaseModel):
     user_id: int
     comment_id: int
     interaction_type: str
-    created_at: datetime
-
-    class Config:
-        from_attributes = True
-
-
-# ========================
-# Post Media Schemas
-# ========================
-class PostMediaResponse(BaseModel):
-    id: int
-    post_id: int
-    file_url: str
-    file_name: str
-    file_size: int
-    media_type: str
-    mime_type: str
     created_at: datetime
 
     class Config:
