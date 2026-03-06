@@ -241,7 +241,7 @@ export function CommentSection({ postId, isOpen }) {
                 className="overflow-hidden"
             >
                 <div
-                    className="px-5 py-3"
+                    className="px-3 sm:px-5 py-3"
                     style={{ borderTop: isDark ? '1px solid rgba(255,255,255,0.04)' : '1px solid rgba(0,0,0,0.05)' }}
                 >
                     {/* Comment Input */}
@@ -257,12 +257,13 @@ export function CommentSection({ postId, isOpen }) {
                             value={newComment}
                             onChange={(e) => setNewComment(e.target.value)}
                             placeholder="Viết bình luận..."
-                            className="flex-1 px-3 py-2 rounded-xl outline-none text-sm"
+                            className="flex-1 px-3 py-2 rounded-xl outline-none"
                             style={{
-                                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(79, 142, 247, 0.05)',
-                                border: isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(79, 142, 247, 0.12)',
+                                background: isDark ? 'rgba(255,255,255,0.05)' : 'rgba(229, 62, 62, 0.05)',
+                                border: isDark ? '1px solid rgba(255,255,255,0.06)' : '1px solid rgba(229, 62, 62, 0.12)',
                                 color: isDark ? '#F1F5F9' : '#1A1A2E',
                                 fontFamily: 'Inter, sans-serif',
+                                fontSize: '16px',  // Prevents iOS auto-zoom
                             }}
                         />
                         <motion.button

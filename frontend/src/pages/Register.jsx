@@ -74,7 +74,7 @@ export function Register() {
                     </p>
                 </div>
 
-                <form onSubmit={handleRegister} className="flex flex-col gap-4">
+                <form onSubmit={handleSubmit} className="flex flex-col gap-4">
                     {error && (
                         <div className="px-4 py-3 rounded-xl text-sm" style={{ background: 'rgba(255, 107, 107, 0.1)', color: '#FF6B6B' }}>{error}</div>
                     )}

@@ -101,7 +101,7 @@ export function PostCard({ post, index = 0, onDelete }) {
             }}
         >
             {/* Header */}
-            <div className="flex items-start justify-between px-5 pt-5 pb-3">
+            <div className="flex items-start justify-between px-3 sm:px-5 pt-4 sm:pt-5 pb-3">
                 <div className="flex items-start gap-3">
                     <div className="relative flex-shrink-0">
                         {isAnonymous ? (
@@ -188,7 +188,7 @@ export function PostCard({ post, index = 0, onDelete }) {
             </div>
 
             {/* Content */}
-            <div className="px-5 pb-3">
+            <div className="px-3 sm:px-5 pb-3">
                 <p
                     style={{
                         fontFamily: 'Inter, sans-serif',
@@ -213,16 +213,16 @@ export function PostCard({ post, index = 0, onDelete }) {
 
             {/* Media */}
             {post.media && post.media.length > 0 && (
-                <div className="px-5 pb-3">
-                    <div className="flex flex-wrap gap-2">
+                <div className="px-3 sm:px-5 pb-3">
+                    <div className={`grid gap-1.5 ${post.media.length >= 2 ? 'grid-cols-2' : 'grid-cols-1'}`}>
                         {post.media.map((m) =>
                             m.media_type === 'image' ? (
                                 <img
                                     key={m.id}
                                     src={m.file_url}
                                     alt={m.file_name}
-                                    className="rounded-xl object-cover cursor-pointer hover:opacity-90 transition-opacity"
-                                    style={{ maxHeight: '300px', maxWidth: '100%' }}
+                                    className="rounded-xl object-cover cursor-pointer hover:opacity-90 transition-opacity w-full"
+                                    style={{ aspectRatio: post.media.length >= 2 ? '1/1' : '16/9', maxHeight: post.media.length === 1 ? '320px' : '200px' }}
                                 />
                             ) : m.media_type === 'audio' ? (
                                 <div key={m.id} className="w-full">
@@ -237,10 +237,10 @@ export function PostCard({ post, index = 0, onDelete }) {
             )}
 
             {/* Divider */}
-            <div className="mx-5" style={{ height: 1, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.05)' }} />
+            <div className="mx-3 sm:mx-5" style={{ height: 1, background: isDark ? 'rgba(255,255,255,0.04)' : 'rgba(0,0,0,0.05)' }} />
 
             {/* Actions */}
-            <div className="flex items-center justify-between px-5 py-3">
+            <div className="flex items-center justify-between px-3 sm:px-5 py-3">
                 <div className="flex items-center gap-1">
                     <motion.button
                         whileTap={{ scale: 0.85 }}

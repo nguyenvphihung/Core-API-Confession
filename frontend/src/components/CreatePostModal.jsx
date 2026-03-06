@@ -94,7 +94,7 @@ export function CreatePostModal({ open, onClose, onPostCreated }) {
                     initial={{ opacity: 0 }}
                     animate={{ opacity: 1 }}
                     exit={{ opacity: 0 }}
-                    className="fixed inset-0 z-50 flex items-center justify-center p-4"
+                    className="fixed inset-0 z-50 flex items-end sm:items-center justify-center sm:p-4"
                     style={{ background: 'rgba(0,0,0,0.6)', backdropFilter: 'blur(8px)' }}
                     onClick={handleClose}
                 >
@@ -103,10 +103,12 @@ export function CreatePostModal({ open, onClose, onPostCreated }) {
                         animate={{ scale: 1, opacity: 1 }}
                         exit={{ scale: 0.9, opacity: 0 }}
                         transition={{ type: 'spring', damping: 25, stiffness: 300 }}
-                        className="w-full max-w-lg rounded-2xl overflow-hidden"
+                        className="w-full sm:max-w-lg rounded-t-3xl sm:rounded-2xl overflow-hidden"
                         style={{
                             background: isDark ? '#1A1A24' : '#FFFFFF',
                             boxShadow: '0 25px 50px rgba(0,0,0,0.3)',
+                            maxHeight: '92dvh',
+                            overflowY: 'auto',
                         }}
                         onClick={(e) => e.stopPropagation()}
                     >

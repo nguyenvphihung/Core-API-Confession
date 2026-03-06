@@ -47,15 +47,15 @@ export function Profile() {
             >
                 {/* Cover */}
                 <div
-                    className="h-32 relative"
+                    className="h-24 sm:h-32 relative"
                     style={{ background: 'linear-gradient(135deg, #C53030 0%, #E53E3E 50%, #FF6B6B 100%)' }}
                 />
 
                 {/* Profile Info */}
-                <div className="px-5 pb-5">
-                    <div className="flex items-end gap-4 -mt-10 mb-4 relative z-10">
+                <div className="px-4 sm:px-5 pb-5">
+                    <div className="flex items-end gap-3 sm:gap-4 -mt-10 mb-4 relative z-10">
                         <div
-                            className="w-20 h-20 rounded-full flex items-center justify-center text-white text-2xl font-bold border-4"
+                            className="w-16 h-16 sm:w-20 sm:h-20 rounded-full flex items-center justify-center text-white text-xl sm:text-2xl font-bold border-4"
                             style={{
                                 background: 'linear-gradient(135deg, #C53030 0%, #E53E3E 100%)',
                                 borderColor: isDark ? '#1A1A24' : '#FFFFFF',
@@ -69,7 +69,7 @@ export function Profile() {
                         style={{
                             fontFamily: 'Poppins, sans-serif',
                             fontWeight: 700,
-                            fontSize: '1.3rem',
+                            fontSize: '1.15rem',
                             color: isDark ? '#F1F5F9' : '#1A1A2E',
                         }}
                     >
